@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>SELAH — Journal System</title>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400;1,500&family=Inter:wght@300;400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../assets/css/base.css">
+<link rel="stylesheet" href="../assets/css/journal.css">
+<script type="module" src="../assets/js/components.js"></script>
+<script defer src="../assets/js/ambient-background.js"></script>
+<script defer src="../assets/js/journal.js"></script>
+</head>
+<body>
+<canvas id="bg"></canvas>
+<div class="page">
+
+  <div data-component="site-header" data-active="journal"></div>
+
+  <main class="layout" role="main">
+
+    <!-- LEFT SIDEBAR -->
+    <div class="sidebar">
+      <div class="journal-types">
+        <button class="type-btn active" type="button" data-journal-type="Gratitude">
+          <div class="type-icon">✦</div>
+          <div class="type-label">Gratitude</div>
+          <div class="type-count">24</div>
+        </button>
+        <button class="type-btn" type="button" data-journal-type="Reflection">
+          <div class="type-icon">◎</div>
+          <div class="type-label">Reflection</div>
+          <div class="type-count">18</div>
+        </button>
+        <button class="type-btn" type="button" data-journal-type="Sermon Notes">
+          <div class="type-icon">◇</div>
+          <div class="type-label">Sermon Notes</div>
+          <div class="type-count">9</div>
+        </button>
+        <button class="type-btn" type="button" data-journal-type="Prayer Diary">
+          <div class="type-icon">○</div>
+          <div class="type-label">Prayer Diary</div>
+          <div class="type-count">31</div>
+        </button>
+        <button class="type-btn" type="button" data-journal-type="Memory Vault">
+          <div class="type-icon">·</div>
+          <div class="type-label">Memory Vault</div>
+          <div class="type-count">12</div>
+        </button>
+      </div>
+
+      <button class="new-entry-btn" type="button" data-new-entry>+ New Entry</button>
+
+      <div class="entry-list" id="entry-list">
+        <div class="entry-list-label">June 2026</div>
+        <button class="entry-item active" type="button" data-full-date="Today · June 9" data-short-date="Today" data-entry-title="What the morning held">
+          <div class="entry-item-title">What the morning held</div>
+          <div class="entry-item-date">Today</div>
+          <div class="entry-item-preview">"The light came slowly and I was grateful for the pause before the day…"</div>
+        </button>
+        <button class="entry-item" type="button" data-full-date="June 7 · Saturday" data-short-date="June 7" data-entry-title="For the quiet Sabbath">
+          <div class="entry-item-title">For the quiet Sabbath</div>
+          <div class="entry-item-date">June 7</div>
+          <div class="entry-item-preview">"Rest is not the absence of work. It is the presence of peace…"</div>
+        </button>
+        <button class="entry-item" type="button" data-full-date="June 4 · Wednesday" data-short-date="June 4" data-entry-title="Three small mercies">
+          <div class="entry-item-title">Three small mercies</div>
+          <div class="entry-item-date">June 4</div>
+          <div class="entry-item-preview">"The smell of coffee. A text from a friend. The way sunlight…"</div>
+        </button>
+        <div class="entry-list-label">May 2026</div>
+        <button class="entry-item" type="button" data-full-date="May 28 · Wednesday" data-short-date="May 28" data-entry-title="On the feeling of being held">
+          <div class="entry-item-title">On the feeling of being held</div>
+          <div class="entry-item-date">May 28</div>
+          <div class="entry-item-preview">"There are moments where the world feels too large and grace feels…"</div>
+        </button>
+        <button class="entry-item" type="button" data-full-date="May 20 · Tuesday" data-short-date="May 20" data-entry-title="Sermon: The prodigal return">
+          <div class="entry-item-title">Sermon: The prodigal return</div>
+          <div class="entry-item-date">May 20</div>
+          <div class="entry-item-preview">"The father ran. He did not wait at the door. He ran…"</div>
+        </button>
+        <button class="entry-item" type="button" data-full-date="May 15 · Thursday" data-short-date="May 15" data-entry-title="Gratitude in dry seasons">
+          <div class="entry-item-title">Gratitude in dry seasons</div>
+          <div class="entry-item-date">May 15</div>
+          <div class="entry-item-preview">"Finding things to be grateful for when nothing feels certain is its own…"</div>
+        </button>
+      </div>
+    </div>
+
+    <!-- WRITING PANE -->
+    <div class="writing-pane" id="writing-pane">
+
+      <!-- GRATITUDE VIEW (default) -->
+      <div id="view-gratitude">
+        <div class="writing-top">
+          <div class="writing-meta">
+            <div class="writing-type-badge">Gratitude</div>
+            <div class="writing-date-badge" id="entry-date-display">Today · June 9, 2026</div>
+          </div>
+          <input class="writing-main-title" placeholder="A title for this moment…" value="What the morning held" id="entry-title"/>
+          <input class="writing-subtitle" placeholder="A quiet subtitle, or leave empty…" value="Three gifts I almost missed"/>
+        </div>
+
+        <div class="gratitude-prompts">
+          <div class="gratitude-prompt-label">Today I am grateful for…</div>
+          <div class="prompt-row">
+            <div class="prompt-num">I</div>
+            <input class="prompt-input" placeholder="The first thing that comes to mind…" value="The light that came slowly through the curtains this morning"/>
+          </div>
+          <div class="prompt-row">
+            <div class="prompt-num">II</div>
+            <input class="prompt-input" placeholder="Something small you almost overlooked…" value="A message from an old friend I hadn't heard from in months"/>
+          </div>
+          <div class="prompt-row">
+            <div class="prompt-num">III</div>
+            <input class="prompt-input" placeholder="A person, a moment, a feeling…" value="The sense that I am not behind — that I am exactly where I should be"/>
+          </div>
+        </div>
+
+        <div class="writing-body-area">
+          <div class="reflection-label">Reflection</div>
+          <textarea class="writing-body" placeholder="Write more freely here, if you'd like. Or leave this space empty — gratitude alone is enough.">There is something about mornings when the world hasn't asked anything of you yet. I find myself most capable of wonder in those first unscripted minutes. The coffee. The silence. The way light doesn't announce itself — it simply arrives.
+
+I don't know why it has taken me so long to notice how consistently these small mercies appear. Like a signature. Like a love language I'm only beginning to learn to read.</textarea>
+        </div>
+
+        <div class="vault-section vault-section-bordered">
+          <div class="vault-label">From the Memory Vault</div>
+          <div class="vault-grid">
+            <div class="vault-card">
+              <div class="vault-card-date">April 3, 2026</div>
+              <div class="vault-card-title">The unexpected kindness</div>
+              <div class="vault-card-preview">"A stranger held the door longer than was comfortable and smiled…"</div>
+              <div class="vault-card-type">Gratitude</div>
+            </div>
+            <div class="vault-card">
+              <div class="vault-card-date">March 18, 2026</div>
+              <div class="vault-card-title">After the long winter</div>
+              <div class="vault-card-preview">"The first warm day felt like a promise being kept."</div>
+              <div class="vault-card-type">Reflection</div>
+            </div>
+            <div class="vault-card">
+              <div class="vault-card-date">February 7, 2026</div>
+              <div class="vault-card-title">Sermon: The still small voice</div>
+              <div class="vault-card-preview">"Elijah expected thunder. God came in a whisper. I wrote this three times…"</div>
+              <div class="vault-card-type">Sermon Notes</div>
+            </div>
+            <div class="vault-card">
+              <div class="vault-card-date">January 1, 2026</div>
+              <div class="vault-card-title">A prayer at the threshold</div>
+              <div class="vault-card-preview">"For what the new year holds — let it be enough. Let me be enough."</div>
+              <div class="vault-card-type">Prayer Diary</div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="writing-action-bar">
+        <div class="action-left">
+          <button class="action-tag active" type="button">Morning</button>
+          <button class="action-tag" type="button">Personal</button>
+          <button class="action-tag" type="button">Gratitude</button>
+        </div>
+        <div class="action-save">Save Entry</div>
+      </div>
+
+    </div>
+  </main>
+  <div data-component="site-footer" data-active="journal"></div>
+</div>
+
+</body>
+</html>

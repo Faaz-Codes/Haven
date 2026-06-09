@@ -1,0 +1,211 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>SELAH — Scripture Space</title>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400;1,500&family=Inter:wght@300;400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../assets/css/base.css">
+<link rel="stylesheet" href="../assets/css/scripture.css">
+<script type="module" src="../assets/js/components.js"></script>
+<script defer src="../assets/js/scripture.js"></script>
+</head>
+<body>
+<canvas id="bg"></canvas>
+<div class="page">
+
+  <div data-component="site-header" data-active="scripture"></div>
+
+  <main class="layout" role="main">
+
+    <!-- LEFT: BOOKS + JOURNEYS -->
+    <div class="sidebar-left">
+      <div>
+        <div class="sidebar-section-label">Currently Reading</div>
+        <div class="book-list">
+          <div class="book-item active">
+            <div class="book-item-dot"></div>
+            <div class="book-item-name">Psalms</div>
+          </div>
+          <div class="book-item">
+            <div class="book-item-dot"></div>
+            <div class="book-item-name">John</div>
+          </div>
+          <div class="book-item">
+            <div class="book-item-dot"></div>
+            <div class="book-item-name">Isaiah</div>
+          </div>
+          <div class="book-item">
+            <div class="book-item-dot"></div>
+            <div class="book-item-name">Romans</div>
+          </div>
+          <div class="book-item">
+            <div class="book-item-dot"></div>
+            <div class="book-item-name">Proverbs</div>
+          </div>
+        </div>
+      </div>
+
+      <div>
+        <div class="sidebar-section-label">Sacred Journeys</div>
+        <div class="journey-card">
+          <div class="journey-eyebrow">Pilgrimage</div>
+          <div class="journey-title">The Life of David</div>
+          <div class="journey-meta">14 passages · Day 6</div>
+        </div>
+        <div class="journey-card">
+          <div class="journey-eyebrow">Pilgrimage</div>
+          <div class="journey-title">Faith During Anxiety</div>
+          <div class="journey-meta">10 passages · Not started</div>
+        </div>
+        <div class="journey-card">
+          <div class="journey-eyebrow">Pilgrimage</div>
+          <div class="journey-title">Walking Through Psalms</div>
+          <div class="journey-meta">30 passages · Day 12</div>
+        </div>
+        <div class="journey-card">
+          <div class="journey-eyebrow">Pilgrimage</div>
+          <div class="journey-title">Understanding Grace</div>
+          <div class="journey-meta">8 passages · Not started</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- CENTER: READER -->
+    <div class="reader">
+      <div class="reader-nav">
+        <span class="book-selector">Psalms</span>
+        <span class="reader-nav-sep">·</span>
+        <span class="chapter-selector">Chapter 23</span>
+      </div>
+      <div class="chapter-title">A Psalm of David</div>
+
+      <div class="verse-block highlighted-gold">
+        <div class="verse-num">1</div>
+        <div class="verse-text">The Lord is my shepherd; I shall not want.</div>
+      </div>
+      <div class="verse-block highlighted-gold">
+        <div class="verse-num">2</div>
+        <div class="verse-text">He makes me lie down in green pastures. He leads me beside still waters.</div>
+      </div>
+      <div class="verse-block highlighted-blue">
+        <div class="verse-num">3</div>
+        <div class="verse-text">He restores my soul. He leads me in paths of righteousness for his name's sake.</div>
+      </div>
+      <div class="verse-block">
+        <div class="verse-num">4</div>
+        <div class="verse-text">Even though I walk through the valley of the shadow of death, I will fear no evil, for you are with me; your rod and your staff, they comfort me.</div>
+      </div>
+      <div class="verse-block highlighted-green">
+        <div class="verse-num">5</div>
+        <div class="verse-text">You prepare a table before me in the presence of my enemies; you anoint my head with oil; my cup overflows.</div>
+      </div>
+      <div class="verse-block highlighted-purple">
+        <div class="verse-num">6</div>
+        <div class="verse-text">Surely goodness and mercy shall follow me all the days of my life, and I shall dwell in the house of the Lord forever.</div>
+      </div>
+
+      <div class="additional-chapter">
+        <div class="chapter-title chapter-title-spaced">Psalms · Chapter 46</div>
+        <div class="verse-block">
+          <div class="verse-num">1</div>
+          <div class="verse-text">God is our refuge and strength, a very present help in trouble.</div>
+        </div>
+        <div class="verse-block highlighted-blue">
+          <div class="verse-num">2</div>
+          <div class="verse-text">Therefore we will not fear though the earth gives way, though the mountains be moved into the heart of the sea.</div>
+        </div>
+        <div class="verse-block">
+          <div class="verse-num">10</div>
+          <div class="verse-text">Be still, and know that I am God. I will be exalted among the nations, I will be exalted in the earth.</div>
+        </div>
+      </div>
+
+      <div class="reader-chapter-nav">
+        <div class="chapter-nav-btn">
+          <svg viewBox="0 0 12 12"><polyline points="8,2 4,6 8,10"/></svg>
+          Previous
+        </div>
+        <div class="chapter-range-label">Psalms 23 – 46</div>
+        <div class="chapter-nav-btn">
+          Next
+          <svg viewBox="0 0 12 12"><polyline points="4,2 8,6 4,10"/></svg>
+        </div>
+      </div>
+    </div>
+
+    <!-- RIGHT: TOOLS -->
+    <div class="sidebar-right">
+      <div>
+        <div class="sidebar-section-label">Highlight Color</div>
+        <div class="highlight-palette">
+          <div class="hl-dot hl-gold active" title="Wisdom"></div>
+          <div class="hl-dot hl-blue" title="Comfort"></div>
+          <div class="hl-dot hl-green" title="Hope"></div>
+          <div class="hl-dot hl-purple" title="Reflection"></div>
+        </div>
+        <div class="highlight-key">
+          <span class="highlight-key-item">Wisdom</span>
+          <span class="highlight-key-item" aria-hidden="true">·</span>
+          <span class="highlight-key-item">Comfort</span>
+          <span class="highlight-key-item" aria-hidden="true">·</span>
+          <span class="highlight-key-item">Hope</span>
+          <span class="highlight-key-item" aria-hidden="true">·</span>
+          <span class="highlight-key-item">Reflect</span>
+        </div>
+      </div>
+
+      <div>
+        <div class="sidebar-section-label">My Notes</div>
+        <div class="note-card">
+          <div class="note-card-ref">Psalm 23:3</div>
+          <div class="note-card-text">"He restores — not repairs. There is tenderness in this word."</div>
+        </div>
+        <div class="note-card">
+          <div class="note-card-ref">Psalm 46:10</div>
+          <div class="note-card-text">"Be still. Not passive — a chosen quietness in the presence of God."</div>
+        </div>
+      </div>
+
+      <div>
+        <div class="sidebar-section-label">Bookmarks</div>
+        <div class="bookmark-row">
+          <div class="bookmark-icon"><svg viewBox="0 0 24 24"><path d="M19 21l-7-5-7 5V5a2 2 0 0 1 2-2h10a2 2 0 0 1 2 2z"/></svg></div>
+          <div>
+            <div class="bookmark-text">Psalm 23</div>
+            <div class="bookmark-ref">A Psalm of David</div>
+          </div>
+        </div>
+        <div class="bookmark-row">
+          <div class="bookmark-icon"><svg viewBox="0 0 24 24"><path d="M19 21l-7-5-7 5V5a2 2 0 0 1 2-2h10a2 2 0 0 1 2 2z"/></svg></div>
+          <div>
+            <div class="bookmark-text">Isaiah 40:31</div>
+            <div class="bookmark-ref">Wings like eagles</div>
+          </div>
+        </div>
+        <div class="bookmark-row">
+          <div class="bookmark-icon"><svg viewBox="0 0 24 24"><path d="M19 21l-7-5-7 5V5a2 2 0 0 1 2-2h10a2 2 0 0 1 2 2z"/></svg></div>
+          <div>
+            <div class="bookmark-text">John 15:5</div>
+            <div class="bookmark-ref">The vine and branches</div>
+          </div>
+        </div>
+      </div>
+
+      <div>
+        <div class="sidebar-section-label">Collections</div>
+        <div class="collection-tags">
+          <button class="collection-tag" type="button">Peace</button>
+          <button class="collection-tag" type="button">Comfort</button>
+          <button class="collection-tag active" type="button">Promises</button>
+          <button class="collection-tag" type="button">Strength</button>
+        </div>
+      </div>
+    </div>
+
+  </main>
+  <div data-component="site-footer" data-active="scripture"></div>
+</div>
+
+</body>
+</html>
