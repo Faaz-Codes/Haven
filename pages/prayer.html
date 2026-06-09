@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>SELAH — Prayer Room</title>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400;1,500&family=Inter:wght@300;400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../assets/css/base.css">
+<link rel="stylesheet" href="../assets/css/prayer.css">
+<script type="module" src="../assets/js/components.js"></script>
+<script defer src="../assets/js/ambient-background.js"></script>
+<script defer src="../assets/js/prayer.js"></script>
+</head>
+<body>
+<canvas id="bg"></canvas>
+<div class="page">
+
+  <div data-component="site-header" data-active="prayer"></div>
+
+  <main class="prayer-layout" role="main">
+
+    <!-- LEFT: CATEGORIES -->
+    <div class="prayer-left">
+      <div>
+        <div class="sidebar-label">Category</div>
+        <div class="category-tag active"><div class="category-dot"></div> Guidance</div>
+        <div class="category-tag"><div class="category-dot"></div> Family</div>
+        <div class="category-tag"><div class="category-dot"></div> Gratitude</div>
+        <div class="category-tag"><div class="category-dot"></div> Healing</div>
+        <div class="category-tag"><div class="category-dot"></div> Personal Growth</div>
+        <div class="category-tag"><div class="category-dot"></div> Others</div>
+      </div>
+
+      <div>
+        <div class="sidebar-label">Past Prayers</div>
+        <div class="prev-prayer">
+          <div class="prev-prayer-date">3 days ago</div>
+          <div class="prev-prayer-text">"Lord, I am uncertain about the path ahead. Give me clarity…"</div>
+        </div>
+        <div class="prev-prayer">
+          <div class="prev-prayer-date">Last week</div>
+          <div class="prev-prayer-text">"For my mother's health. Keep her in your gentle hands…"</div>
+        </div>
+        <div class="prev-prayer">
+          <div class="prev-prayer-date">June 1st</div>
+          <div class="prev-prayer-text">"Thank you for the morning. For breath. For this quiet moment."</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- CENTER: WRITING -->
+    <div class="writing-center">
+      <div class="writing-header">
+        <div class="writing-date" id="prayer-date">Today · Guidance</div>
+        <input class="writing-title-input" placeholder="A prayer for…" value="A prayer for direction"/>
+      </div>
+      <div class="writing-divider"></div>
+      <textarea class="writing-area" placeholder="Write freely. This is your private letter to God. There are no wrong words here…">Lord,
+
+I find myself at a threshold I did not expect to reach so soon. The road behind me is clear, but the road ahead is hidden in morning mist.
+
+I ask not for the whole map — only for the next step. Give me wisdom to discern your voice from the noise. Give me courage to move when you say move, and peace to be still when you say wait.
+
+Let my heart be a place where your Spirit finds rest.
+
+Amen.</textarea>
+      <div class="writing-footer">
+        <div class="footer-tags">
+          <div class="footer-tag active">Guidance</div>
+          <div class="footer-tag">Personal</div>
+          <div class="footer-tag">Morning</div>
+        </div>
+        <div class="save-btn">Offer Prayer</div>
+      </div>
+    </div>
+
+    <!-- RIGHT: ANSWERED PRAYERS -->
+    <div class="prayer-right">
+      <div>
+        <div class="sidebar-label">Answered Prayers</div>
+        <div class="answered-card">
+          <div class="answered-label">✦ Answered</div>
+          <div class="answered-text">"For peace in the waiting season. It came quietly, like dawn."</div>
+          <div class="answered-date">May 18th · Guidance</div>
+        </div>
+        <div class="answered-card">
+          <div class="answered-label">✦ Answered</div>
+          <div class="answered-text">"For my brother's restoration. He is home again."</div>
+          <div class="answered-date">April 30th · Family</div>
+        </div>
+        <div class="answered-card">
+          <div class="answered-label">✦ Answered</div>
+          <div class="answered-text">"For the courage to speak what needed to be said."</div>
+          <div class="answered-date">April 12th · Growth</div>
+        </div>
+      </div>
+
+      <div>
+        <div class="sidebar-label sidebar-label-spaced">Soft Reminder</div>
+        <blockquote class="soft-reminder">“Do not be anxious about anything, but in every situation, by prayer… present your requests to God.”<br><cite>— Phil. 4:6</cite></blockquote>
+      </div>
+    </div>
+
+  </main>
+
+  <div class="page-bottom-spacer" aria-hidden="true"></div>
+  <div data-component="site-footer" data-active="prayer"></div>
+</div>
+
+</body>
+</html>

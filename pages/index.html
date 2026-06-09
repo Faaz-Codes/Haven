@@ -1,0 +1,234 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>SELAH — Your Digital Sanctuary</title>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400;1,500&family=Inter:wght@300;400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../assets/css/base.css">
+<link rel="stylesheet" href="../assets/css/index.css">
+<script type="module" src="../assets/js/components.js"></script>
+<script defer src="../assets/js/index.js"></script>
+</head>
+<body>
+
+<canvas id="bg-canvas"></canvas>
+
+<div class="page">
+
+  <div data-component="site-header" data-active="home"></div>
+
+  <!-- GREETING -->
+  <div class="greeting">
+    <div class="greeting-sub">Wednesday Morning</div>
+    <h1 class="greeting-main">Be still, and know.</h1>
+  </div>
+
+  <!-- MAIN GRID -->
+  <main class="sanctuary-grid" role="main">
+
+    <!-- TOP ROW: Scripture | Home Sanctuary | Habit Tracker -->
+    <div class="grid-row top">
+
+      <!-- SCRIPTURE SPACE -->
+      <a class="panel panel-link" href="scripture.html">
+        <div class="panel-inner">
+          <div class="panel-icon">
+            <svg viewBox="0 0 24 24"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"/><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"/><line x1="12" y1="6" x2="16" y2="6"/><line x1="12" y1="10" x2="16" y2="10"/></svg>
+          </div>
+          <div class="panel-label">Scripture Space</div>
+          <h2 class="panel-title">The Ancient Archive</h2>
+          <div class="panel-desc">Enter a space of reverence and discovery. Read slowly. Listen deeply.</div>
+
+          <div class="scripture-preview">
+            <div class="book-row">
+              <div class="book-dot book-dot-psalms"></div>
+              <div class="book-name">Psalms</div>
+              <div class="book-progress"><div class="book-progress-fill progress-68"></div></div>
+            </div>
+            <div class="book-row">
+              <div class="book-dot book-dot-john"></div>
+              <div class="book-name">John</div>
+              <div class="book-progress"><div class="book-progress-fill progress-42"></div></div>
+            </div>
+            <div class="book-row">
+              <div class="book-dot book-dot-isaiah"></div>
+              <div class="book-name">Isaiah</div>
+              <div class="book-progress"><div class="book-progress-fill progress-18"></div></div>
+            </div>
+          </div>
+
+          <div class="panel-footer">
+            <div class="panel-cta">Open & Read</div>
+            <div class="panel-arrow">
+              <svg viewBox="0 0 12 12"><polyline points="4,2 8,6 4,10"/></svg>
+            </div>
+          </div>
+        </div>
+      </a>
+
+      <!-- HOME SANCTUARY (center, featured) -->
+      <div class="panel panel-home">
+        <div class="panel-inner">
+          <div class="panel-label panel-label-center">Home Sanctuary</div>
+
+          <div class="verse-container">
+            <div class="verse-ornament"></div>
+            <div class="verse-text">
+              "He makes me lie down in green pastures. He leads me beside still waters. He restores my soul."
+            </div>
+            <div class="verse-ref">Psalm 23 : 2–3</div>
+            <div class="verse-ornament-bottom"></div>
+          </div>
+
+          <!-- Today's habits row -->
+          <div class="habits-row">
+            <div class="habit-dot">
+              <div class="habit-circle done"></div>
+              <div class="habit-name">Prayer</div>
+            </div>
+            <div class="habit-dot">
+              <div class="habit-circle done"></div>
+              <div class="habit-name">Reading</div>
+            </div>
+            <div class="habit-dot">
+              <div class="habit-circle partial"></div>
+              <div class="habit-name">Journal</div>
+            </div>
+            <div class="habit-dot">
+              <div class="habit-circle empty"></div>
+              <div class="habit-name">Stillness</div>
+            </div>
+            <div class="habit-dot">
+              <div class="habit-circle empty"></div>
+              <div class="habit-name">Gratitude</div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- HABIT TRACKER -->
+      <a class="panel panel-link" href="habits.html">
+        <div class="panel-inner">
+          <div class="panel-icon">
+            <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/><circle cx="12" cy="12" r="3" fill="rgba(219,175,138,0.3)" stroke="var(--tumbleweed)"/></svg>
+          </div>
+          <div class="panel-label">Habit Tracker</div>
+          <h2 class="panel-title">Tending the Garden</h2>
+          <div class="panel-desc">Each practice, a seed. Each day, a quiet becoming.</div>
+
+          <div class="habit-grid">
+            <div class="habit-card">
+              <div class="habit-card-icon">✦</div>
+              <div class="habit-card-name">Morning Prayer</div>
+              <div class="habit-glow-dot"></div>
+            </div>
+            <div class="habit-card">
+              <div class="habit-card-icon">◎</div>
+              <div class="habit-card-name">Scripture Reading</div>
+              <div class="habit-glow-dot"></div>
+            </div>
+            <div class="habit-card">
+              <div class="habit-card-icon">◇</div>
+              <div class="habit-card-name">Reflection</div>
+              <div class="habit-glow-dot habit-glow-dot-blue"></div>
+            </div>
+            <div class="habit-card">
+              <div class="habit-card-icon">○</div>
+              <div class="habit-card-name">Gratitude</div>
+              <div class="habit-glow-dot habit-glow-dot-blue"></div>
+            </div>
+          </div>
+
+          <div class="panel-footer">
+            <div class="panel-cta">Tend Your Practice</div>
+            <div class="panel-arrow">
+              <svg viewBox="0 0 12 12"><polyline points="4,2 8,6 4,10"/></svg>
+            </div>
+          </div>
+        </div>
+      </a>
+
+    </div>
+
+    <!-- BOTTOM ROW: Journal | Prayer Room -->
+    <div class="grid-row bottom">
+
+      <!-- JOURNAL SYSTEM -->
+      <a class="panel panel-link" href="journal.html">
+        <div class="panel-inner">
+          <div class="panel-icon">
+            <svg viewBox="0 0 24 24"><path d="M17 3a2.85 2.83 0 1 1 4 4L7.5 20.5 2 22l1.5-5.5Z"/><path d="m15 5 4 4"/></svg>
+          </div>
+          <div class="panel-label">Journal System</div>
+          <h2 class="panel-title">Personal Manuscripts</h2>
+          <div class="panel-desc">Words become memory. Memory becomes wisdom.</div>
+
+          <div class="journal-entries">
+            <div class="journal-entry">
+              <div class="journal-entry-date">Yesterday · Reflection</div>
+              <div class="journal-entry-text">"There is a stillness I have not yet learned to inhabit fully…"</div>
+            </div>
+            <div class="journal-entry">
+              <div class="journal-entry-date">Monday · Gratitude</div>
+              <div class="journal-entry-text">"For the morning light. For the quiet before the world wakes."</div>
+            </div>
+          </div>
+
+          <div class="journal-type-pills">
+            <div class="journal-pill active">Gratitude</div>
+            <div class="journal-pill">Reflection</div>
+            <div class="journal-pill">Sermon Notes</div>
+            <div class="journal-pill">Prayer Diary</div>
+          </div>
+
+          <div class="panel-footer">
+            <div class="panel-cta">Open Journal</div>
+            <div class="panel-arrow">
+              <svg viewBox="0 0 12 12"><polyline points="4,2 8,6 4,10"/></svg>
+            </div>
+          </div>
+        </div>
+      </a>
+
+      <!-- PRAYER ROOM -->
+      <a class="panel panel-link" href="prayer.html">
+        <div class="panel-inner">
+          <div class="panel-icon">
+            <svg viewBox="0 0 24 24"><path d="M12 22C6.5 22 2 17.5 2 12S6.5 2 12 2s10 4.5 10 10-4.5 10-10 10z"/><path d="M12 8v4l3 3"/><circle cx="12" cy="12" r="2" fill="rgba(219,175,138,0.2)" stroke="var(--tumbleweed)"/></svg>
+          </div>
+          <div class="panel-label">Prayer Room</div>
+          <h2 class="panel-title">The Quiet Place</h2>
+          <div class="panel-desc">You are heard here. Speak freely, in the language of your heart.</div>
+
+          <div class="prayer-note">
+            <div class="prayer-note-label">Current Prayer</div>
+            <div class="prayer-note-text">"Lord, grant me peace in the waiting. Let my trust be deeper than my understanding…"</div>
+          </div>
+
+          <div class="prayer-tags">
+            <div class="prayer-tag">Family</div>
+            <div class="prayer-tag">Guidance</div>
+            <div class="prayer-tag">Gratitude</div>
+            <div class="prayer-tag">Healing</div>
+            <div class="prayer-tag">Growth</div>
+          </div>
+
+          <div class="panel-footer">
+            <div class="panel-cta">Enter & Pray</div>
+            <div class="panel-arrow">
+              <svg viewBox="0 0 12 12"><polyline points="4,2 8,6 4,10"/></svg>
+            </div>
+          </div>
+        </div>
+      </a>
+
+    </div>
+  </main>
+
+  <div data-component="site-footer" data-active="home"></div>
+
+</div>
+
+</body>
+</html>

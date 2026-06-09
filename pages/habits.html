@@ -1,0 +1,186 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>SELAH — Habit Tracker</title>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400;1,500&family=Inter:wght@300;400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../assets/css/base.css">
+<link rel="stylesheet" href="../assets/css/habits.css">
+<script type="module" src="../assets/js/components.js"></script>
+<script defer src="../assets/js/ambient-background.js"></script>
+<script defer src="../assets/js/habits.js"></script>
+</head>
+<body>
+<canvas id="bg"></canvas>
+<div class="page">
+
+  <div data-component="site-header" data-active="habits"></div>
+
+  <main class="page-content" role="main">
+  <div class="page-header">
+    <div class="page-eyebrow">Habit Tracker</div>
+    <h1 class="page-title">Tending the Garden</h1>
+    <p class="page-subtitle">You are becoming. Quietly. Daily. Faithfully.</p>
+  </div>
+
+  <div class="constellation-wrapper">
+    <canvas id="constellation-canvas"></canvas>
+  </div>
+
+  <div class="becoming">
+    <div class="becoming-text">"Each small act of devotion is a <span class="becoming-accent">light</span> added to the constellation of who you are becoming."</div>
+  </div>
+
+  <!-- WEEK VIEW -->
+  <div class="week-row">
+    <div class="section-label week-section-label">This Week</div>
+    <div class="week-grid">
+      <div class="week-day">
+        <div class="week-day-label">Mon</div>
+        <div class="week-day-num">2</div>
+        <div class="week-day-fill"><div class="week-day-fill-bar progress-80"></div></div>
+      </div>
+      <div class="week-day">
+        <div class="week-day-label">Tue</div>
+        <div class="week-day-num">3</div>
+        <div class="week-day-fill"><div class="week-day-fill-bar progress-100"></div></div>
+      </div>
+      <div class="week-day">
+        <div class="week-day-label">Wed</div>
+        <div class="week-day-num">4</div>
+        <div class="week-day-fill"><div class="week-day-fill-bar progress-60"></div></div>
+      </div>
+      <div class="week-day">
+        <div class="week-day-label">Thu</div>
+        <div class="week-day-num">5</div>
+        <div class="week-day-fill"><div class="week-day-fill-bar progress-40"></div></div>
+      </div>
+      <div class="week-day">
+        <div class="week-day-label">Fri</div>
+        <div class="week-day-num">6</div>
+        <div class="week-day-fill"><div class="week-day-fill-bar progress-100"></div></div>
+      </div>
+      <div class="week-day">
+        <div class="week-day-label">Sat</div>
+        <div class="week-day-num">7</div>
+        <div class="week-day-fill"><div class="week-day-fill-bar progress-20"></div></div>
+      </div>
+      <div class="week-day today">
+        <div class="week-day-label">Sun</div>
+        <div class="week-day-num">8</div>
+        <div class="week-day-fill"><div class="week-day-fill-bar progress-45"></div></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- HABIT CARDS -->
+  <div class="habits-section">
+    <div class="section-label">Today's Practices</div>
+    <div class="habits-grid">
+
+      <div class="habit-card done" role="button" tabindex="0" data-toggle-habit>
+        <div class="habit-card-top">
+          <div class="habit-icon-ring">✦</div>
+          <div class="habit-status-ring"><div class="habit-status-dot"></div></div>
+        </div>
+        <div class="habit-name">Morning Prayer</div>
+        <div class="habit-desc">Begin each day in quiet conversation. Let your first words be His name.</div>
+        <div class="habit-streak">
+          <div class="streak-dots">
+            <div class="streak-dot filled"></div><div class="streak-dot filled"></div><div class="streak-dot filled"></div>
+            <div class="streak-dot filled"></div><div class="streak-dot filled"></div><div class="streak-dot"></div><div class="streak-dot"></div>
+          </div>
+          <div class="streak-label">5 days</div>
+        </div>
+      </div>
+
+      <div class="habit-card done" role="button" tabindex="0" data-toggle-habit>
+        <div class="habit-card-top">
+          <div class="habit-icon-ring">◎</div>
+          <div class="habit-status-ring"><div class="habit-status-dot"></div></div>
+        </div>
+        <div class="habit-name">Scripture Reading</div>
+        <div class="habit-desc">Dwell in the Word. Let it speak before the world does.</div>
+        <div class="habit-streak">
+          <div class="streak-dots">
+            <div class="streak-dot filled"></div><div class="streak-dot filled"></div><div class="streak-dot filled"></div>
+            <div class="streak-dot filled"></div><div class="streak-dot filled"></div><div class="streak-dot filled"></div><div class="streak-dot"></div>
+          </div>
+          <div class="streak-label">6 days</div>
+        </div>
+      </div>
+
+      <div class="habit-card" role="button" tabindex="0" data-toggle-habit>
+        <div class="habit-card-top">
+          <div class="habit-icon-ring">◇</div>
+          <div class="habit-status-ring"><div class="habit-status-dot"></div></div>
+        </div>
+        <div class="habit-name">Evening Reflection</div>
+        <div class="habit-desc">Trace the hand of God through the hours that have passed.</div>
+        <div class="habit-streak">
+          <div class="streak-dots">
+            <div class="streak-dot filled"></div><div class="streak-dot filled"></div><div class="streak-dot"></div>
+            <div class="streak-dot filled"></div><div class="streak-dot"></div><div class="streak-dot"></div><div class="streak-dot"></div>
+          </div>
+          <div class="streak-label">2 days</div>
+        </div>
+      </div>
+
+      <div class="habit-card" role="button" tabindex="0" data-toggle-habit>
+        <div class="habit-card-top">
+          <div class="habit-icon-ring">○</div>
+          <div class="habit-status-ring"><div class="habit-status-dot"></div></div>
+        </div>
+        <div class="habit-name">Gratitude Practice</div>
+        <div class="habit-desc">Three things. Every morning. Offered with an open hand.</div>
+        <div class="habit-streak">
+          <div class="streak-dots">
+            <div class="streak-dot filled"></div><div class="streak-dot filled"></div><div class="streak-dot filled"></div>
+            <div class="streak-dot"></div><div class="streak-dot"></div><div class="streak-dot"></div><div class="streak-dot"></div>
+          </div>
+          <div class="streak-label">3 days</div>
+        </div>
+      </div>
+
+      <div class="habit-card" role="button" tabindex="0" data-toggle-habit>
+        <div class="habit-card-top">
+          <div class="habit-icon-ring">·</div>
+          <div class="habit-status-ring"><div class="habit-status-dot"></div></div>
+        </div>
+        <div class="habit-name">Stillness</div>
+        <div class="habit-desc">Five minutes without words. Just presence. Just listening.</div>
+        <div class="habit-streak">
+          <div class="streak-dots">
+            <div class="streak-dot filled"></div><div class="streak-dot"></div><div class="streak-dot"></div>
+            <div class="streak-dot"></div><div class="streak-dot"></div><div class="streak-dot"></div><div class="streak-dot"></div>
+          </div>
+          <div class="streak-label">1 day</div>
+        </div>
+      </div>
+
+      <div class="habit-card" role="button" tabindex="0" data-toggle-habit>
+        <div class="habit-card-top">
+          <div class="habit-icon-ring">✿</div>
+          <div class="habit-status-ring"><div class="habit-status-dot"></div></div>
+        </div>
+        <div class="habit-name">Acts of Kindness</div>
+        <div class="habit-desc">One deliberate act. Let faith have hands and feet today.</div>
+        <div class="habit-streak">
+          <div class="streak-dots">
+            <div class="streak-dot filled"></div><div class="streak-dot filled"></div><div class="streak-dot filled"></div>
+            <div class="streak-dot filled"></div><div class="streak-dot"></div><div class="streak-dot"></div><div class="streak-dot"></div>
+          </div>
+          <div class="streak-label">4 days</div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+  </main>
+
+  <div data-component="site-footer" data-active="habits"></div>
+</div>
+
+</body>
+</html>
