@@ -1,0 +1,338 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>SELAH — Prayer Room</title>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400;1,500&family=Inter:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}
+:root{
+  --cello:#203A58;--bermuda:#6F8CA4;--coffee:#75564D;
+  --tumbleweed:#DBAF8A;--hitgray:#A2AEB3;
+  --w:#FFFFFF;--w75:rgba(255,255,255,0.75);--w50:rgba(255,255,255,0.50);
+  --w20:rgba(255,255,255,0.20);--w10:rgba(255,255,255,0.10);--w06:rgba(255,255,255,0.06);
+  --glass:rgba(32,58,88,0.45);--gborder:rgba(219,175,138,0.18);
+  --radius:28px;
+  --serif:'Cormorant Garamond',Georgia,serif;
+  --sans:'Inter',system-ui,sans-serif;
+}
+html,body{height:100%;overflow-x:hidden;}
+body{font-family:var(--sans);background:var(--cello);color:var(--w);min-height:100vh;}
+#bg{position:fixed;inset:0;width:100%;height:100%;z-index:0;pointer-events:none;}
+.page{position:relative;z-index:1;min-height:100vh;display:flex;flex-direction:column;align-items:center;}
+
+/* TOPBAR */
+.topbar{width:100%;display:flex;align-items:center;justify-content:space-between;padding:1.6rem 3rem 1rem;animation:fadeDown 1s ease both;}
+.back{display:flex;align-items:center;gap:.55rem;font-size:.68rem;letter-spacing:.2em;text-transform:uppercase;color:var(--w50);cursor:pointer;transition:color .3s;}
+.back:hover{color:var(--tumbleweed);}
+.back svg{width:14px;height:14px;stroke:currentColor;fill:none;stroke-width:2;stroke-linecap:round;stroke-linejoin:round;}
+.logo{font-family:var(--serif);font-size:1.6rem;font-weight:300;letter-spacing:.35em;color:var(--w);text-transform:uppercase;}
+.logo span{color:var(--tumbleweed);}
+.topbar-right{display:flex;align-items:center;gap:.6rem;}
+.icon-btn{width:34px;height:34px;border-radius:9px;background:var(--w10);border:1px solid var(--w20);display:flex;align-items:center;justify-content:center;cursor:pointer;transition:background .3s;}
+.icon-btn:hover{background:rgba(219,175,138,0.15);}
+.icon-btn svg{width:15px;height:15px;stroke:var(--w75);fill:none;stroke-width:1.5;stroke-linecap:round;stroke-linejoin:round;}
+
+/* CANDLE */
+.candle-area{display:flex;flex-direction:column;align-items:center;padding:1rem 0 2.5rem;animation:fadeUp 1s ease .1s both;}
+#candle-canvas{width:80px;height:100px;}
+.candle-verse{font-family:var(--serif);font-size:.82rem;font-style:italic;color:var(--w50);letter-spacing:.04em;margin-top:.75rem;text-align:center;}
+
+/* MAIN LAYOUT */
+.prayer-layout{width:100%;max-width:1100px;display:grid;grid-template-columns:200px 1fr 200px;gap:0;padding:0 2.5rem;animation:fadeUp 1s ease .15s both;}
+
+/* LEFT SIDEBAR */
+.prayer-left{padding-right:2rem;display:flex;flex-direction:column;gap:2rem;}
+.sidebar-label{font-size:.6rem;letter-spacing:.26em;text-transform:uppercase;color:var(--tumbleweed);opacity:.65;margin-bottom:.8rem;}
+
+.category-tag{
+  display:flex;align-items:center;gap:.6rem;
+  padding:.55rem .75rem;border-radius:10px;
+  font-size:.8rem;color:var(--w50);
+  cursor:pointer;transition:background .3s,color .3s;
+}
+.category-tag:hover{background:var(--w06);color:var(--w75);}
+.category-tag.active{background:rgba(219,175,138,0.10);color:var(--tumbleweed);border-left:2px solid rgba(219,175,138,0.45);}
+.category-dot{width:5px;height:5px;border-radius:50%;background:currentColor;flex-shrink:0;opacity:.65;}
+
+/* CENTER WRITING AREA */
+.writing-center{display:flex;flex-direction:column;}
+
+.writing-header{margin-bottom:1.5rem;}
+.writing-date{font-size:.62rem;letter-spacing:.22em;text-transform:uppercase;color:var(--tumbleweed);opacity:.65;margin-bottom:.4rem;}
+.writing-title-input{
+  font-family:var(--serif);font-size:1.8rem;font-weight:300;
+  color:var(--w);background:transparent;border:none;outline:none;
+  width:100%;letter-spacing:.02em;caret-color:var(--tumbleweed);
+}
+.writing-title-input::placeholder{color:var(--w20);}
+.writing-divider{height:1px;background:linear-gradient(90deg,transparent,rgba(219,175,138,0.2),transparent);margin-bottom:1.5rem;}
+
+.writing-area{
+  font-family:var(--serif);font-size:1.15rem;font-weight:300;
+  color:var(--w75);background:transparent;border:none;outline:none;
+  width:100%;min-height:340px;resize:none;
+  line-height:1.9;letter-spacing:.01em;caret-color:var(--tumbleweed);
+}
+.writing-area::placeholder{color:var(--w20);font-style:italic;}
+
+.writing-footer{
+  display:flex;align-items:center;justify-content:space-between;
+  padding-top:1.2rem;border-top:1px solid var(--w06);margin-top:1rem;
+}
+.footer-tags{display:flex;gap:.45rem;flex-wrap:wrap;}
+.footer-tag{font-size:.62rem;letter-spacing:.08em;color:var(--w50);border:1px solid var(--w10);border-radius:20px;padding:.22rem .65rem;background:var(--w06);cursor:pointer;transition:all .3s;}
+.footer-tag.active{color:var(--tumbleweed);border-color:rgba(219,175,138,0.3);background:rgba(219,175,138,0.07);}
+.save-btn{
+  font-size:.65rem;letter-spacing:.2em;text-transform:uppercase;
+  color:var(--tumbleweed);background:rgba(219,175,138,0.10);
+  border:1px solid rgba(219,175,138,0.25);border-radius:20px;
+  padding:.45rem 1.2rem;cursor:pointer;transition:all .3s;
+}
+.save-btn:hover{background:rgba(219,175,138,0.18);border-color:rgba(219,175,138,0.4);}
+
+/* RIGHT SIDEBAR */
+.prayer-right{padding-left:2rem;display:flex;flex-direction:column;gap:2rem;}
+
+.answered-card{
+  background:rgba(219,175,138,0.06);
+  border:1px solid rgba(219,175,138,0.14);
+  border-radius:16px;padding:1rem 1.1rem;
+  cursor:pointer;transition:background .3s;
+}
+.answered-card + .answered-card{margin-top:.6rem;}
+.answered-card:hover{background:rgba(219,175,138,0.10);}
+.answered-label{font-size:.58rem;letter-spacing:.2em;text-transform:uppercase;color:var(--tumbleweed);opacity:.6;margin-bottom:.35rem;}
+.answered-text{font-family:var(--serif);font-size:.88rem;font-style:italic;color:var(--w75);line-height:1.55;font-weight:300;}
+.answered-date{font-size:.6rem;color:var(--w50);margin-top:.4rem;letter-spacing:.05em;}
+
+/* PREVIOUS PRAYERS */
+.prev-prayer{
+  padding:.7rem 0;
+  border-bottom:1px solid var(--w06);
+  cursor:pointer;transition:opacity .3s;
+}
+.prev-prayer:last-child{border-bottom:none;}
+.prev-prayer:hover{opacity:.8;}
+.prev-prayer-date{font-size:.6rem;letter-spacing:.16em;text-transform:uppercase;color:var(--w50);margin-bottom:.25rem;}
+.prev-prayer-text{font-family:var(--serif);font-size:.88rem;font-style:italic;color:var(--w75);line-height:1.5;font-weight:300;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden;}
+
+/* KEYFRAMES */
+@keyframes fadeUp{from{opacity:0;transform:translateY(16px);}to{opacity:1;transform:translateY(0);}}
+@keyframes fadeDown{from{opacity:0;transform:translateY(-10px);}to{opacity:1;transform:translateY(0);}}
+
+@media(max-width:1000px){
+  .prayer-layout{grid-template-columns:160px 1fr 160px;gap:0;}
+  .prayer-left{padding-right:1.25rem;}
+  .prayer-right{padding-left:1.25rem;}
+}
+@media(max-width:740px){
+  .prayer-layout{grid-template-columns:1fr;}
+  .prayer-left,.prayer-right{display:none;}
+  .prayer-layout{padding:0 1.5rem;}
+}
+@media(max-width:560px){
+  .topbar{padding:1rem 1.25rem .5rem;}
+}
+</style>
+</head>
+<body>
+<canvas id="bg"></canvas>
+<div class="page">
+
+  <div class="topbar">
+    <div class="back">
+      <svg viewBox="0 0 12 12"><polyline points="8,2 4,6 8,10"/></svg>
+      Sanctuary
+    </div>
+    <div class="logo">S<span>E</span>LAH</div>
+    <div class="topbar-right">
+      <div class="icon-btn" title="Archive">
+        <svg viewBox="0 0 24 24"><polyline points="21 8 21 21 3 21 3 8"/><rect x="1" y="3" width="22" height="5"/><line x1="10" y1="12" x2="14" y2="12"/></svg>
+      </div>
+    </div>
+  </div>
+
+  <!-- CANDLE -->
+  <div class="candle-area">
+    <canvas id="candle-canvas"></canvas>
+    <div class="candle-verse">"Call to me and I will answer you." — Jeremiah 33:3</div>
+  </div>
+
+  <!-- THREE COLUMN -->
+  <div class="prayer-layout">
+
+    <!-- LEFT: CATEGORIES -->
+    <div class="prayer-left">
+      <div>
+        <div class="sidebar-label">Category</div>
+        <div class="category-tag active"><div class="category-dot"></div> Guidance</div>
+        <div class="category-tag"><div class="category-dot"></div> Family</div>
+        <div class="category-tag"><div class="category-dot"></div> Gratitude</div>
+        <div class="category-tag"><div class="category-dot"></div> Healing</div>
+        <div class="category-tag"><div class="category-dot"></div> Personal Growth</div>
+        <div class="category-tag"><div class="category-dot"></div> Others</div>
+      </div>
+
+      <div>
+        <div class="sidebar-label">Past Prayers</div>
+        <div class="prev-prayer">
+          <div class="prev-prayer-date">3 days ago</div>
+          <div class="prev-prayer-text">"Lord, I am uncertain about the path ahead. Give me clarity…"</div>
+        </div>
+        <div class="prev-prayer">
+          <div class="prev-prayer-date">Last week</div>
+          <div class="prev-prayer-text">"For my mother's health. Keep her in your gentle hands…"</div>
+        </div>
+        <div class="prev-prayer">
+          <div class="prev-prayer-date">June 1st</div>
+          <div class="prev-prayer-text">"Thank you for the morning. For breath. For this quiet moment."</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- CENTER: WRITING -->
+    <div class="writing-center">
+      <div class="writing-header">
+        <div class="writing-date" id="prayer-date">Today · Guidance</div>
+        <input class="writing-title-input" placeholder="A prayer for…" value="A prayer for direction"/>
+      </div>
+      <div class="writing-divider"></div>
+      <textarea class="writing-area" placeholder="Write freely. This is your private letter to God. There are no wrong words here…">Lord,
+
+I find myself at a threshold I did not expect to reach so soon. The road behind me is clear, but the road ahead is hidden in morning mist.
+
+I ask not for the whole map — only for the next step. Give me wisdom to discern your voice from the noise. Give me courage to move when you say move, and peace to be still when you say wait.
+
+Let my heart be a place where your Spirit finds rest.
+
+Amen.</textarea>
+      <div class="writing-footer">
+        <div class="footer-tags">
+          <div class="footer-tag active">Guidance</div>
+          <div class="footer-tag">Personal</div>
+          <div class="footer-tag">Morning</div>
+        </div>
+        <div class="save-btn">Offer Prayer</div>
+      </div>
+    </div>
+
+    <!-- RIGHT: ANSWERED PRAYERS -->
+    <div class="prayer-right">
+      <div>
+        <div class="sidebar-label">Answered Prayers</div>
+        <div class="answered-card">
+          <div class="answered-label">✦ Answered</div>
+          <div class="answered-text">"For peace in the waiting season. It came quietly, like dawn."</div>
+          <div class="answered-date">May 18th · Guidance</div>
+        </div>
+        <div class="answered-card">
+          <div class="answered-label">✦ Answered</div>
+          <div class="answered-text">"For my brother's restoration. He is home again."</div>
+          <div class="answered-date">April 30th · Family</div>
+        </div>
+        <div class="answered-card">
+          <div class="answered-label">✦ Answered</div>
+          <div class="answered-text">"For the courage to speak what needed to be said."</div>
+          <div class="answered-date">April 12th · Growth</div>
+        </div>
+      </div>
+
+      <div>
+        <div class="sidebar-label" style="margin-bottom:.5rem;">Soft Reminder</div>
+        <div style="font-family:var(--serif);font-size:.88rem;font-style:italic;color:var(--w50);line-height:1.65;font-weight:300;">"Do not be anxious about anything, but in every situation, by prayer… present your requests to God."<br><span style="font-size:.72rem;opacity:.6;font-style:normal;letter-spacing:.1em;">— Phil. 4:6</span></div>
+      </div>
+    </div>
+
+  </div>
+
+  <div style="height:4rem;"></div>
+</div>
+
+<script>
+/* BG */
+const bgC=document.getElementById('bg');const bgX=bgC.getContext('2d');
+function resizeBg(){bgC.width=window.innerWidth;bgC.height=Math.max(window.innerHeight,document.body.scrollHeight);}
+resizeBg();window.addEventListener('resize',resizeBg);
+const pts=Array.from({length:50},()=>({x:Math.random()*window.innerWidth,y:Math.random()*window.innerHeight,r:Math.random()*1.1+.3,alpha:Math.random()*.22+.04,vx:(Math.random()-.5)*.08,vy:(Math.random()-.5)*.06-.025,pulse:Math.random()*Math.PI*2,ps:.006+Math.random()*.01,warm:Math.random()>.45}));
+function drawBg(){
+  bgX.clearRect(0,0,bgC.width,bgC.height);
+  const g=bgX.createLinearGradient(0,0,0,bgC.height);
+  g.addColorStop(0,'#16293f');g.addColorStop(.5,'#203A58');g.addColorStop(1,'#2a4560');
+  bgX.fillStyle=g;bgX.fillRect(0,0,bgC.width,bgC.height);
+  const gl=bgX.createRadialGradient(bgC.width*.5,bgC.height*.3,0,bgC.width*.5,bgC.height*.3,bgC.width*.4);
+  gl.addColorStop(0,'rgba(219,175,138,0.06)');gl.addColorStop(1,'transparent');
+  bgX.fillStyle=gl;bgX.fillRect(0,0,bgC.width,bgC.height);
+  pts.forEach(p=>{
+    p.x+=p.vx;p.y+=p.vy;p.pulse+=p.ps;
+    if(p.x<-5)p.x=bgC.width+5;if(p.x>bgC.width+5)p.x=-5;
+    if(p.y<-5)p.y=bgC.height+5;if(p.y>bgC.height+5)p.y=-5;
+    const a=p.alpha*(0.65+0.35*Math.sin(p.pulse));
+    bgX.beginPath();bgX.arc(p.x,p.y,p.r,0,Math.PI*2);
+    bgX.fillStyle=p.warm?`rgba(219,175,138,${a})`:`rgba(162,174,179,${a})`;bgX.fill();
+  });
+  requestAnimationFrame(drawBg);
+}
+drawBg();
+
+/* CANDLE */
+const cc=document.getElementById('candle-canvas');const cx=cc.getContext('2d');
+cc.width=80;cc.height=100;
+let flicker=0;
+function drawCandle(){
+  cx.clearRect(0,0,80,100);
+  flicker+=.05;
+  const f=Math.sin(flicker)*2.5+Math.sin(flicker*1.7)*1.5;
+
+  // Flame glow
+  const gl=cx.createRadialGradient(40,32+f*.4,0,40,35,28);
+  gl.addColorStop(0,'rgba(219,175,138,0.55)');
+  gl.addColorStop(.4,'rgba(219,175,138,0.15)');
+  gl.addColorStop(1,'transparent');
+  cx.fillStyle=gl;cx.beginPath();cx.arc(40,35,28,0,Math.PI*2);cx.fill();
+
+  // Flame body
+  cx.beginPath();
+  cx.moveTo(40,15+f*.5);
+  cx.bezierCurveTo(44,22,47,28+f*.3,40,40);
+  cx.bezierCurveTo(33,28+f*.3,36,22,40,15+f*.5);
+  cx.fillStyle='rgba(219,175,138,0.85)';cx.fill();
+
+  // Flame inner
+  cx.beginPath();
+  cx.moveTo(40,20+f*.4);
+  cx.bezierCurveTo(42,25,43,30+f*.2,40,38);
+  cx.bezierCurveTo(37,30+f*.2,38,25,40,20+f*.4);
+  cx.fillStyle='rgba(255,240,210,0.7)';cx.fill();
+
+  // Wick
+  cx.beginPath();cx.moveTo(40,40);cx.lineTo(40,46);
+  cx.strokeStyle='rgba(255,255,255,0.3)';cx.lineWidth=1;cx.stroke();
+
+  // Candle body
+  const cg=cx.createLinearGradient(28,46,52,46);
+  cg.addColorStop(0,'rgba(219,175,138,0.35)');
+  cg.addColorStop(.5,'rgba(219,175,138,0.55)');
+  cg.addColorStop(1,'rgba(219,175,138,0.25)');
+  cx.fillStyle=cg;cx.beginPath();cx.roundRect(28,46,24,48,3);cx.fill();
+
+  // Candle wax drip
+  cx.fillStyle='rgba(219,175,138,0.20)';cx.beginPath();cx.ellipse(40,46,12,3,0,0,Math.PI*2);cx.fill();
+
+  requestAnimationFrame(drawCandle);
+}
+drawCandle();
+
+// Date
+const d=new Date();
+const months=['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'];
+const days=['Sunday','Monday','Tuesday','Wednesday','Thursday','Friday','Saturday'];
+document.getElementById('prayer-date').textContent=`${days[d.getDay()]} ${months[d.getMonth()]} ${d.getDate()} · Guidance`;
+
+// Tags
+document.querySelectorAll('.footer-tag').forEach(t=>{t.addEventListener('click',()=>t.classList.toggle('active'));});
+document.querySelectorAll('.category-tag').forEach(t=>{t.addEventListener('click',()=>{document.querySelectorAll('.category-tag').forEach(x=>x.classList.remove('active'));t.classList.add('active');});});
+</script>
+</body>
+</html>

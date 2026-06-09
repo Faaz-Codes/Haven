@@ -1,0 +1,1046 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>SELAH — Your Digital Sanctuary</title>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400;1,500&family=Inter:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  :root {
+    --cello: #203A58;
+    --bermuda: #6F8CA4;
+    --coffee: #75564D;
+    --tumbleweed: #DBAF8A;
+    --hitgray: #A2AEB3;
+    --white: #FFFFFF;
+    --white75: rgba(255,255,255,0.75);
+    --white50: rgba(255,255,255,0.50);
+    --white20: rgba(255,255,255,0.20);
+    --white10: rgba(255,255,255,0.10);
+    --white06: rgba(255,255,255,0.06);
+    --glass-bg: rgba(32,58,88,0.45);
+    --glass-border: rgba(219,175,138,0.18);
+    --glass-hover: rgba(32,58,88,0.60);
+    --radius: 28px;
+    --font-serif: 'Cormorant Garamond', Georgia, serif;
+    --font-sans: 'Inter', system-ui, sans-serif;
+  }
+
+  html, body {
+    height: 100%;
+    overflow-x: hidden;
+  }
+
+  body {
+    font-family: var(--font-sans);
+    background: var(--cello);
+    color: var(--white);
+    min-height: 100vh;
+  }
+
+  /* ── CANVAS BACKGROUND ── */
+  #bg-canvas {
+    position: fixed;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 0;
+    pointer-events: none;
+  }
+
+  /* ── PAGE WRAPPER ── */
+  .page {
+    position: relative;
+    z-index: 1;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+
+  /* ── HEADER ── */
+  header {
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 2rem 3.5rem 1rem;
+    animation: fadeDown 1.2s ease both;
+  }
+
+  .logo {
+    font-family: var(--font-serif);
+    font-size: 2rem;
+    font-weight: 300;
+    letter-spacing: 0.35em;
+    color: var(--white);
+    text-transform: uppercase;
+  }
+
+  .logo span {
+    color: var(--tumbleweed);
+  }
+
+  .header-tagline {
+    font-size: 0.72rem;
+    letter-spacing: 0.22em;
+    color: var(--white50);
+    text-transform: uppercase;
+  }
+
+  .header-time {
+    font-family: var(--font-serif);
+    font-size: 1.1rem;
+    font-weight: 300;
+    color: var(--white75);
+    letter-spacing: 0.05em;
+  }
+
+  /* ── GREETING ── */
+  .greeting {
+    text-align: center;
+    padding: 1.5rem 2rem 2.5rem;
+    animation: fadeUp 1.4s ease 0.2s both;
+  }
+
+  .greeting-sub {
+    font-size: 0.7rem;
+    letter-spacing: 0.3em;
+    color: var(--tumbleweed);
+    text-transform: uppercase;
+    margin-bottom: 0.6rem;
+    opacity: 0.85;
+  }
+
+  .greeting-main {
+    font-family: var(--font-serif);
+    font-size: clamp(1.6rem, 3vw, 2.4rem);
+    font-weight: 300;
+    color: var(--white);
+    letter-spacing: 0.04em;
+  }
+
+  /* ── PANEL GRID ── */
+  .sanctuary-grid {
+    width: 100%;
+    max-width: 1320px;
+    padding: 0 2.5rem 4rem;
+    display: flex;
+    flex-direction: column;
+    gap: 1.75rem;
+  }
+
+  .grid-row {
+    display: grid;
+    gap: 1.75rem;
+  }
+
+  .grid-row.top { grid-template-columns: 1fr 1.3fr 1fr; }
+  .grid-row.bottom { grid-template-columns: 1fr 1fr; max-width: 900px; margin: 0 auto; width: 100%; }
+
+  /* ── GLASS PANEL ── */
+  .panel {
+    background: var(--glass-bg);
+    border: 1px solid var(--glass-border);
+    border-radius: var(--radius);
+    backdrop-filter: blur(18px) saturate(140%);
+    -webkit-backdrop-filter: blur(18px) saturate(140%);
+    box-shadow:
+      0 8px 40px rgba(0,0,0,0.28),
+      0 1px 0 rgba(255,255,255,0.07) inset,
+      0 -1px 0 rgba(0,0,0,0.15) inset;
+    overflow: hidden;
+    cursor: pointer;
+    transition: transform 0.45s cubic-bezier(0.22,1,0.36,1),
+                box-shadow 0.45s cubic-bezier(0.22,1,0.36,1),
+                background 0.45s ease,
+                border-color 0.45s ease;
+    animation: panelRise 1.2s cubic-bezier(0.22,1,0.36,1) both;
+  }
+
+  .panel:hover {
+    transform: translateY(-6px) scale(1.012);
+    background: var(--glass-hover);
+    border-color: rgba(219,175,138,0.35);
+    box-shadow:
+      0 20px 60px rgba(0,0,0,0.38),
+      0 0 40px rgba(219,175,138,0.09),
+      0 1px 0 rgba(255,255,255,0.10) inset;
+  }
+
+  .panel:nth-child(1) { animation-delay: 0.1s; }
+  .panel:nth-child(2) { animation-delay: 0.22s; }
+  .panel:nth-child(3) { animation-delay: 0.34s; }
+
+  .grid-row.bottom .panel:nth-child(1) { animation-delay: 0.46s; }
+  .grid-row.bottom .panel:nth-child(2) { animation-delay: 0.58s; }
+
+  /* ── PANEL INNER ── */
+  .panel-inner {
+    padding: 2rem 2.2rem 2.2rem;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+  }
+
+  .panel-icon {
+    width: 40px;
+    height: 40px;
+    border-radius: 12px;
+    background: var(--white10);
+    border: 1px solid var(--white20);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 1.4rem;
+    flex-shrink: 0;
+  }
+
+  .panel-icon svg {
+    width: 20px;
+    height: 20px;
+    stroke: var(--tumbleweed);
+    fill: none;
+    stroke-width: 1.5;
+    stroke-linecap: round;
+    stroke-linejoin: round;
+  }
+
+  .panel-label {
+    font-size: 0.62rem;
+    letter-spacing: 0.28em;
+    text-transform: uppercase;
+    color: var(--tumbleweed);
+    margin-bottom: 0.45rem;
+    opacity: 0.8;
+  }
+
+  .panel-title {
+    font-family: var(--font-serif);
+    font-size: clamp(1.3rem, 2vw, 1.75rem);
+    font-weight: 400;
+    color: var(--white);
+    line-height: 1.25;
+    margin-bottom: 0.9rem;
+    letter-spacing: 0.01em;
+  }
+
+  .panel-desc {
+    font-size: 0.82rem;
+    color: var(--white75);
+    line-height: 1.75;
+    font-weight: 300;
+    letter-spacing: 0.01em;
+    flex: 1;
+  }
+
+  .panel-footer {
+    margin-top: 1.6rem;
+    padding-top: 1.2rem;
+    border-top: 1px solid var(--white10);
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+
+  .panel-cta {
+    font-size: 0.72rem;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: var(--tumbleweed);
+    opacity: 0.75;
+    transition: opacity 0.3s ease;
+  }
+
+  .panel:hover .panel-cta { opacity: 1; }
+
+  .panel-arrow {
+    width: 24px;
+    height: 24px;
+    border-radius: 50%;
+    background: var(--white06);
+    border: 1px solid var(--white20);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: background 0.3s ease, transform 0.3s ease;
+  }
+
+  .panel:hover .panel-arrow {
+    background: rgba(219,175,138,0.18);
+    transform: translateX(3px);
+  }
+
+  .panel-arrow svg {
+    width: 11px;
+    height: 11px;
+    stroke: var(--white75);
+    fill: none;
+    stroke-width: 2;
+    stroke-linecap: round;
+    stroke-linejoin: round;
+  }
+
+  /* ── HOME SANCTUARY (center panel — larger, has verse) ── */
+  .panel-home {
+    min-height: 420px;
+    position: relative;
+  }
+
+  .panel-home .panel-inner {
+    padding: 2.2rem 2.5rem 2.2rem;
+  }
+
+  /* golden accent glow top-right */
+  .panel-home::before {
+    content: '';
+    position: absolute;
+    top: -40px;
+    right: -40px;
+    width: 200px;
+    height: 200px;
+    background: radial-gradient(circle, rgba(219,175,138,0.18) 0%, transparent 70%);
+    pointer-events: none;
+    border-radius: 50%;
+  }
+
+  .verse-container {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    padding: 1rem 0.5rem;
+    animation: verseReveal 2s ease 0.6s both;
+  }
+
+  .verse-ornament {
+    width: 36px;
+    height: 1px;
+    background: linear-gradient(90deg, transparent, var(--tumbleweed), transparent);
+    margin: 0 auto 1.4rem;
+  }
+
+  .verse-text {
+    font-family: var(--font-serif);
+    font-size: clamp(1.1rem, 1.8vw, 1.4rem);
+    font-weight: 300;
+    font-style: italic;
+    color: var(--white);
+    line-height: 1.7;
+    letter-spacing: 0.02em;
+    max-width: 340px;
+    text-shadow: 0 0 40px rgba(219,175,138,0.25);
+  }
+
+  .verse-ref {
+    margin-top: 1rem;
+    font-size: 0.72rem;
+    letter-spacing: 0.22em;
+    text-transform: uppercase;
+    color: var(--tumbleweed);
+    opacity: 0.75;
+  }
+
+  .verse-ornament-bottom {
+    width: 24px;
+    height: 1px;
+    background: linear-gradient(90deg, transparent, var(--tumbleweed), transparent);
+    margin: 1.4rem auto 0;
+  }
+
+  /* Habit mini indicators */
+  .habits-row {
+    display: flex;
+    gap: 0.8rem;
+    margin-top: auto;
+    padding-top: 1.4rem;
+    border-top: 1px solid var(--white10);
+    flex-wrap: wrap;
+  }
+
+  .habit-dot {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0.4rem;
+  }
+
+  .habit-circle {
+    width: 32px;
+    height: 32px;
+    border-radius: 50%;
+    border: 1.5px solid var(--white20);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+    transition: border-color 0.3s ease;
+  }
+
+  .habit-circle.done {
+    border-color: var(--tumbleweed);
+    background: rgba(219,175,138,0.12);
+  }
+
+  .habit-circle.done::after {
+    content: '';
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    background: var(--tumbleweed);
+    opacity: 0.85;
+  }
+
+  .habit-circle.partial {
+    border-color: var(--bermuda);
+  }
+
+  .habit-circle.partial::after {
+    content: '';
+    width: 6px;
+    height: 6px;
+    border-radius: 50%;
+    background: var(--bermuda);
+    opacity: 0.7;
+  }
+
+  .habit-circle.empty::after {
+    content: '';
+    width: 5px;
+    height: 5px;
+    border-radius: 50%;
+    background: var(--white20);
+  }
+
+  .habit-name {
+    font-size: 0.6rem;
+    color: var(--white50);
+    letter-spacing: 0.06em;
+    white-space: nowrap;
+  }
+
+  /* ── SCRIPTURE PANEL content ── */
+  .scripture-preview {
+    margin-top: 0.8rem;
+    flex: 1;
+  }
+
+  .book-row {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    padding: 0.65rem 0;
+    border-bottom: 1px solid var(--white06);
+  }
+
+  .book-row:last-child { border-bottom: none; }
+
+  .book-dot {
+    width: 6px;
+    height: 6px;
+    border-radius: 50%;
+    flex-shrink: 0;
+  }
+
+  .book-name {
+    font-family: var(--font-serif);
+    font-size: 0.9rem;
+    color: var(--white75);
+    flex: 1;
+  }
+
+  .book-progress {
+    width: 44px;
+    height: 2px;
+    background: var(--white10);
+    border-radius: 2px;
+    overflow: hidden;
+    flex-shrink: 0;
+  }
+
+  .book-progress-fill {
+    height: 100%;
+    background: var(--tumbleweed);
+    border-radius: 2px;
+    opacity: 0.65;
+  }
+
+  /* ── HABIT TRACKER content ── */
+  .habit-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 0.65rem;
+    margin-top: 0.8rem;
+    flex: 1;
+  }
+
+  .habit-card {
+    background: var(--white06);
+    border: 1px solid var(--white10);
+    border-radius: 14px;
+    padding: 0.75rem 0.8rem;
+    transition: background 0.3s ease;
+  }
+
+  .habit-card:hover { background: var(--white10); }
+
+  .habit-card-icon {
+    font-size: 1rem;
+    margin-bottom: 0.35rem;
+  }
+
+  .habit-card-name {
+    font-size: 0.72rem;
+    color: var(--white75);
+    font-weight: 400;
+    letter-spacing: 0.02em;
+  }
+
+  .habit-glow-dot {
+    width: 5px;
+    height: 5px;
+    border-radius: 50%;
+    background: var(--tumbleweed);
+    opacity: 0.6;
+    margin-top: 0.4rem;
+  }
+
+  /* ── PRAYER ROOM content ── */
+  .prayer-note {
+    background: rgba(219,175,138,0.07);
+    border: 1px solid rgba(219,175,138,0.15);
+    border-radius: 16px;
+    padding: 1rem 1.1rem;
+    margin-top: 0.8rem;
+    flex: 1;
+  }
+
+  .prayer-note-label {
+    font-size: 0.6rem;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--tumbleweed);
+    opacity: 0.6;
+    margin-bottom: 0.5rem;
+  }
+
+  .prayer-note-text {
+    font-family: var(--font-serif);
+    font-size: 0.92rem;
+    font-style: italic;
+    color: var(--white75);
+    line-height: 1.65;
+    font-weight: 300;
+  }
+
+  .prayer-tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.4rem;
+    margin-top: 1rem;
+  }
+
+  .prayer-tag {
+    font-size: 0.62rem;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--white50);
+    border: 1px solid var(--white20);
+    border-radius: 20px;
+    padding: 0.28rem 0.7rem;
+    background: var(--white06);
+  }
+
+  /* ── JOURNAL SYSTEM content ── */
+  .journal-entries {
+    display: flex;
+    flex-direction: column;
+    gap: 0.65rem;
+    margin-top: 0.8rem;
+    flex: 1;
+  }
+
+  .journal-entry {
+    background: var(--white06);
+    border: 1px solid var(--white10);
+    border-radius: 14px;
+    padding: 0.8rem 1rem;
+  }
+
+  .journal-entry-date {
+    font-size: 0.6rem;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: var(--tumbleweed);
+    opacity: 0.65;
+    margin-bottom: 0.35rem;
+  }
+
+  .journal-entry-text {
+    font-family: var(--font-serif);
+    font-size: 0.88rem;
+    font-style: italic;
+    color: var(--white75);
+    line-height: 1.6;
+    font-weight: 300;
+  }
+
+  .journal-type-pills {
+    display: flex;
+    gap: 0.4rem;
+    margin-top: 0.8rem;
+    flex-wrap: wrap;
+  }
+
+  .journal-pill {
+    font-size: 0.62rem;
+    letter-spacing: 0.08em;
+    color: var(--white50);
+    border: 1px solid var(--white10);
+    border-radius: 6px;
+    padding: 0.25rem 0.65rem;
+    background: var(--white06);
+    text-transform: capitalize;
+    cursor: pointer;
+    transition: border-color 0.3s ease, color 0.3s ease;
+  }
+
+  .journal-pill.active {
+    border-color: rgba(219,175,138,0.4);
+    color: var(--tumbleweed);
+    background: rgba(219,175,138,0.06);
+  }
+
+  /* ── FOOTER NAV ── */
+  footer {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    padding: 0 2rem 3rem;
+    animation: fadeUp 1.4s ease 0.8s both;
+  }
+
+  .footer-nav {
+    display: flex;
+    align-items: center;
+    gap: 0.4rem;
+    background: var(--glass-bg);
+    border: 1px solid var(--glass-border);
+    backdrop-filter: blur(18px);
+    -webkit-backdrop-filter: blur(18px);
+    border-radius: 60px;
+    padding: 0.55rem 0.75rem;
+  }
+
+  .nav-item {
+    font-size: 0.65rem;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    color: var(--white50);
+    padding: 0.45rem 1.1rem;
+    border-radius: 40px;
+    cursor: pointer;
+    transition: color 0.3s ease, background 0.3s ease;
+    white-space: nowrap;
+  }
+
+  .nav-item:hover { color: var(--white75); background: var(--white06); }
+
+  .nav-item.active {
+    color: var(--white);
+    background: var(--white10);
+  }
+
+  .nav-dot {
+    width: 3px;
+    height: 3px;
+    border-radius: 50%;
+    background: var(--white20);
+  }
+
+  /* ── KEYFRAMES ── */
+  @keyframes fadeUp {
+    from { opacity: 0; transform: translateY(18px); }
+    to   { opacity: 1; transform: translateY(0); }
+  }
+
+  @keyframes fadeDown {
+    from { opacity: 0; transform: translateY(-12px); }
+    to   { opacity: 1; transform: translateY(0); }
+  }
+
+  @keyframes panelRise {
+    from { opacity: 0; transform: translateY(28px) scale(0.98); }
+    to   { opacity: 1; transform: translateY(0) scale(1); }
+  }
+
+  @keyframes verseReveal {
+    from { opacity: 0; transform: translateY(10px); }
+    to   { opacity: 1; transform: translateY(0); }
+  }
+
+  /* ── RESPONSIVE ── */
+  @media (max-width: 1100px) {
+    header { padding: 1.5rem 2rem 0.75rem; }
+    .sanctuary-grid { padding: 0 1.5rem 3rem; gap: 1.25rem; }
+    .grid-row.top { grid-template-columns: 1fr 1.2fr 1fr; gap: 1.25rem; }
+    .grid-row.bottom { max-width: 700px; gap: 1.25rem; }
+  }
+
+  @media (max-width: 860px) {
+    header { padding: 1.25rem 1.5rem 0.5rem; }
+    .grid-row.top { grid-template-columns: 1fr; }
+    .grid-row.bottom { grid-template-columns: 1fr; max-width: 100%; }
+    .panel-home { min-height: 320px; }
+  }
+
+  @media (max-width: 560px) {
+    header { padding: 1rem 1.25rem 0.5rem; }
+    .logo { font-size: 1.5rem; }
+    .sanctuary-grid { padding: 0 1rem 2.5rem; }
+    .panel-inner { padding: 1.5rem 1.5rem 1.75rem; }
+  }
+</style>
+</head>
+<body>
+
+<canvas id="bg-canvas"></canvas>
+
+<div class="page">
+
+  <!-- HEADER -->
+  <header>
+    <div class="logo">S<span>E</span>LAH</div>
+    <div class="header-tagline">Your Sacred Space</div>
+    <div class="header-time" id="live-time">—</div>
+  </header>
+
+  <!-- GREETING -->
+  <div class="greeting">
+    <div class="greeting-sub">Wednesday Morning</div>
+    <div class="greeting-main">Be still, and know.</div>
+  </div>
+
+  <!-- MAIN GRID -->
+  <div class="sanctuary-grid">
+
+    <!-- TOP ROW: Scripture | Home Sanctuary | Habit Tracker -->
+    <div class="grid-row top">
+
+      <!-- SCRIPTURE SPACE -->
+      <div class="panel">
+        <div class="panel-inner">
+          <div class="panel-icon">
+            <svg viewBox="0 0 24 24"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"/><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"/><line x1="12" y1="6" x2="16" y2="6"/><line x1="12" y1="10" x2="16" y2="10"/></svg>
+          </div>
+          <div class="panel-label">Scripture Space</div>
+          <div class="panel-title">The Ancient Archive</div>
+          <div class="panel-desc">Enter a space of reverence and discovery. Read slowly. Listen deeply.</div>
+
+          <div class="scripture-preview">
+            <div class="book-row">
+              <div class="book-dot" style="background:var(--tumbleweed);opacity:.7"></div>
+              <div class="book-name">Psalms</div>
+              <div class="book-progress"><div class="book-progress-fill" style="width:68%"></div></div>
+            </div>
+            <div class="book-row">
+              <div class="book-dot" style="background:var(--bermuda);opacity:.7"></div>
+              <div class="book-name">John</div>
+              <div class="book-progress"><div class="book-progress-fill" style="width:42%"></div></div>
+            </div>
+            <div class="book-row">
+              <div class="book-dot" style="background:var(--hitgray);opacity:.7"></div>
+              <div class="book-name">Isaiah</div>
+              <div class="book-progress"><div class="book-progress-fill" style="width:18%"></div></div>
+            </div>
+          </div>
+
+          <div class="panel-footer">
+            <div class="panel-cta">Open & Read</div>
+            <div class="panel-arrow">
+              <svg viewBox="0 0 12 12"><polyline points="4,2 8,6 4,10"/></svg>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- HOME SANCTUARY (center, featured) -->
+      <div class="panel panel-home">
+        <div class="panel-inner">
+          <div class="panel-label" style="text-align:center;">Home Sanctuary</div>
+
+          <div class="verse-container">
+            <div class="verse-ornament"></div>
+            <div class="verse-text">
+              "He makes me lie down in green pastures. He leads me beside still waters. He restores my soul."
+            </div>
+            <div class="verse-ref">Psalm 23 : 2–3</div>
+            <div class="verse-ornament-bottom"></div>
+          </div>
+
+          <!-- Today's habits row -->
+          <div class="habits-row">
+            <div class="habit-dot">
+              <div class="habit-circle done"></div>
+              <div class="habit-name">Prayer</div>
+            </div>
+            <div class="habit-dot">
+              <div class="habit-circle done"></div>
+              <div class="habit-name">Reading</div>
+            </div>
+            <div class="habit-dot">
+              <div class="habit-circle partial"></div>
+              <div class="habit-name">Journal</div>
+            </div>
+            <div class="habit-dot">
+              <div class="habit-circle empty"></div>
+              <div class="habit-name">Stillness</div>
+            </div>
+            <div class="habit-dot">
+              <div class="habit-circle empty"></div>
+              <div class="habit-name">Gratitude</div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- HABIT TRACKER -->
+      <div class="panel">
+        <div class="panel-inner">
+          <div class="panel-icon">
+            <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/><circle cx="12" cy="12" r="3" fill="rgba(219,175,138,0.3)" stroke="var(--tumbleweed)"/></svg>
+          </div>
+          <div class="panel-label">Habit Tracker</div>
+          <div class="panel-title">Tending the Garden</div>
+          <div class="panel-desc">Each practice, a seed. Each day, a quiet becoming.</div>
+
+          <div class="habit-grid">
+            <div class="habit-card">
+              <div class="habit-card-icon">✦</div>
+              <div class="habit-card-name">Morning Prayer</div>
+              <div class="habit-glow-dot"></div>
+            </div>
+            <div class="habit-card">
+              <div class="habit-card-icon">◎</div>
+              <div class="habit-card-name">Scripture Reading</div>
+              <div class="habit-glow-dot"></div>
+            </div>
+            <div class="habit-card">
+              <div class="habit-card-icon">◇</div>
+              <div class="habit-card-name">Reflection</div>
+              <div class="habit-glow-dot" style="background:var(--bermuda)"></div>
+            </div>
+            <div class="habit-card">
+              <div class="habit-card-icon">○</div>
+              <div class="habit-card-name">Gratitude</div>
+              <div class="habit-glow-dot" style="background:var(--bermuda)"></div>
+            </div>
+          </div>
+
+          <div class="panel-footer">
+            <div class="panel-cta">Tend Your Practice</div>
+            <div class="panel-arrow">
+              <svg viewBox="0 0 12 12"><polyline points="4,2 8,6 4,10"/></svg>
+            </div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+
+    <!-- BOTTOM ROW: Journal | Prayer Room -->
+    <div class="grid-row bottom">
+
+      <!-- JOURNAL SYSTEM -->
+      <div class="panel">
+        <div class="panel-inner">
+          <div class="panel-icon">
+            <svg viewBox="0 0 24 24"><path d="M17 3a2.85 2.83 0 1 1 4 4L7.5 20.5 2 22l1.5-5.5Z"/><path d="m15 5 4 4"/></svg>
+          </div>
+          <div class="panel-label">Journal System</div>
+          <div class="panel-title">Personal Manuscripts</div>
+          <div class="panel-desc">Words become memory. Memory becomes wisdom.</div>
+
+          <div class="journal-entries">
+            <div class="journal-entry">
+              <div class="journal-entry-date">Yesterday · Reflection</div>
+              <div class="journal-entry-text">"There is a stillness I have not yet learned to inhabit fully…"</div>
+            </div>
+            <div class="journal-entry">
+              <div class="journal-entry-date">Monday · Gratitude</div>
+              <div class="journal-entry-text">"For the morning light. For the quiet before the world wakes."</div>
+            </div>
+          </div>
+
+          <div class="journal-type-pills">
+            <div class="journal-pill active">Gratitude</div>
+            <div class="journal-pill">Reflection</div>
+            <div class="journal-pill">Sermon Notes</div>
+            <div class="journal-pill">Prayer Diary</div>
+          </div>
+
+          <div class="panel-footer">
+            <div class="panel-cta">Open Journal</div>
+            <div class="panel-arrow">
+              <svg viewBox="0 0 12 12"><polyline points="4,2 8,6 4,10"/></svg>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- PRAYER ROOM -->
+      <div class="panel">
+        <div class="panel-inner">
+          <div class="panel-icon">
+            <svg viewBox="0 0 24 24"><path d="M12 22C6.5 22 2 17.5 2 12S6.5 2 12 2s10 4.5 10 10-4.5 10-10 10z"/><path d="M12 8v4l3 3"/><circle cx="12" cy="12" r="2" fill="rgba(219,175,138,0.2)" stroke="var(--tumbleweed)"/></svg>
+          </div>
+          <div class="panel-label">Prayer Room</div>
+          <div class="panel-title">The Quiet Place</div>
+          <div class="panel-desc">You are heard here. Speak freely, in the language of your heart.</div>
+
+          <div class="prayer-note">
+            <div class="prayer-note-label">Current Prayer</div>
+            <div class="prayer-note-text">"Lord, grant me peace in the waiting. Let my trust be deeper than my understanding…"</div>
+          </div>
+
+          <div class="prayer-tags">
+            <div class="prayer-tag">Family</div>
+            <div class="prayer-tag">Guidance</div>
+            <div class="prayer-tag">Gratitude</div>
+            <div class="prayer-tag">Healing</div>
+            <div class="prayer-tag">Growth</div>
+          </div>
+
+          <div class="panel-footer">
+            <div class="panel-cta">Enter & Pray</div>
+            <div class="panel-arrow">
+              <svg viewBox="0 0 12 12"><polyline points="4,2 8,6 4,10"/></svg>
+            </div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- FOOTER NAV -->
+  <footer>
+    <nav class="footer-nav" aria-label="Sanctuary navigation">
+      <div class="nav-item active">Home</div>
+      <div class="nav-dot"></div>
+      <div class="nav-item">Scripture</div>
+      <div class="nav-dot"></div>
+      <div class="nav-item">Habits</div>
+      <div class="nav-dot"></div>
+      <div class="nav-item">Journal</div>
+      <div class="nav-dot"></div>
+      <div class="nav-item">Prayer</div>
+    </nav>
+  </footer>
+
+</div>
+
+<script>
+/* ── LIVE TIME ── */
+function updateTime() {
+  const now = new Date();
+  const opts = { hour: 'numeric', minute: '2-digit', hour12: true };
+  document.getElementById('live-time').textContent = now.toLocaleTimeString('en-US', opts);
+}
+updateTime();
+setInterval(updateTime, 30000);
+
+/* ── PARTICLE CANVAS ── */
+const canvas = document.getElementById('bg-canvas');
+const ctx = canvas.getContext('2d');
+
+function resize() {
+  canvas.width = window.innerWidth;
+  canvas.height = Math.max(window.innerHeight, document.body.scrollHeight);
+}
+resize();
+window.addEventListener('resize', resize);
+
+// Background gradient
+function drawBg() {
+  const grad = ctx.createLinearGradient(0, 0, canvas.width * 0.5, canvas.height);
+  grad.addColorStop(0, '#203A58');
+  grad.addColorStop(0.55, '#2c4a6a');
+  grad.addColorStop(1, '#6F8CA4');
+  ctx.fillStyle = grad;
+  ctx.fillRect(0, 0, canvas.width, canvas.height);
+
+  // soft golden light source — upper center-right
+  const glow = ctx.createRadialGradient(canvas.width * 0.72, canvas.height * 0.18, 0, canvas.width * 0.72, canvas.height * 0.18, canvas.width * 0.45);
+  glow.addColorStop(0, 'rgba(219,175,138,0.08)');
+  glow.addColorStop(0.5, 'rgba(219,175,138,0.03)');
+  glow.addColorStop(1, 'transparent');
+  ctx.fillStyle = glow;
+  ctx.fillRect(0, 0, canvas.width, canvas.height);
+
+  // secondary deeper blue light — lower left
+  const glow2 = ctx.createRadialGradient(canvas.width * 0.12, canvas.height * 0.75, 0, canvas.width * 0.12, canvas.height * 0.75, canvas.width * 0.4);
+  glow2.addColorStop(0, 'rgba(111,140,164,0.12)');
+  glow2.addColorStop(1, 'transparent');
+  ctx.fillStyle = glow2;
+  ctx.fillRect(0, 0, canvas.width, canvas.height);
+}
+
+// Particles
+const PARTICLE_COUNT = 68;
+const particles = [];
+
+for (let i = 0; i < PARTICLE_COUNT; i++) {
+  particles.push({
+    x: Math.random() * canvas.width,
+    y: Math.random() * canvas.height,
+    r: Math.random() * 1.4 + 0.3,
+    alpha: Math.random() * 0.35 + 0.05,
+    vx: (Math.random() - 0.5) * 0.12,
+    vy: (Math.random() - 0.5) * 0.09 - 0.04,
+    pulse: Math.random() * Math.PI * 2,
+    pulseSpeed: 0.008 + Math.random() * 0.012,
+    warm: Math.random() > 0.55
+  });
+}
+
+let raf;
+function animate() {
+  ctx.clearRect(0, 0, canvas.width, canvas.height);
+  drawBg();
+
+  particles.forEach(p => {
+    p.x += p.vx;
+    p.y += p.vy;
+    p.pulse += p.pulseSpeed;
+
+    if (p.x < -10) p.x = canvas.width + 10;
+    if (p.x > canvas.width + 10) p.x = -10;
+    if (p.y < -10) p.y = canvas.height + 10;
+    if (p.y > canvas.height + 10) p.y = -10;
+
+    const alphaMod = p.alpha * (0.7 + 0.3 * Math.sin(p.pulse));
+    ctx.beginPath();
+    ctx.arc(p.x, p.y, p.r, 0, Math.PI * 2);
+    ctx.fillStyle = p.warm
+      ? `rgba(219,175,138,${alphaMod})`
+      : `rgba(162,174,179,${alphaMod})`;
+    ctx.fill();
+  });
+
+  raf = requestAnimationFrame(animate);
+}
+
+animate();
+
+// Resize updates canvas height after content loads
+window.addEventListener('load', () => {
+  resize();
+});
+</script>
+</body>
+</html>
