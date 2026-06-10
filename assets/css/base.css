@@ -1,12 +1,10 @@
 .site-header .logo,
-.site-header .back,
 .site-header .site-nav-link,
 .site-footer .nav-item {
   text-decoration: none;
 }
 
 .site-header .logo:focus-visible,
-.site-header .back:focus-visible,
 .site-header .site-nav-link:focus-visible,
 .site-header .icon-btn:focus-visible,
 .site-footer .nav-item:focus-visible,
@@ -82,7 +80,6 @@ button:focus-visible,
     padding-inline: 1.25rem;
   }
 
-  .site-header .back,
   .site-header .topbar-right {
     order: 2;
   }
