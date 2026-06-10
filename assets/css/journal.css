@@ -16,9 +16,6 @@ body{font-family:var(--sans);background:var(--cello);color:var(--w);min-height:1
 
 /* TOPBAR */
 .topbar{width:100%;display:flex;align-items:center;justify-content:space-between;padding:1.6rem 3rem 1rem;animation:fadeDown 1s ease both;}
-.back{display:flex;align-items:center;gap:.55rem;font-size:.68rem;letter-spacing:.2em;text-transform:uppercase;color:var(--w50);cursor:pointer;transition:color .3s;}
-.back:hover{color:var(--tumbleweed);}
-.back svg{width:14px;height:14px;stroke:currentColor;fill:none;stroke-width:2;stroke-linecap:round;stroke-linejoin:round;}
 .logo{font-family:var(--serif);font-size:1.6rem;font-weight:300;letter-spacing:.35em;color:var(--w);text-transform:uppercase;}
 .logo span{color:var(--tumbleweed);}
 .icon-btn{width:34px;height:34px;border-radius:9px;background:var(--w10);border:1px solid var(--w20);display:flex;align-items:center;justify-content:center;cursor:pointer;transition:background .3s;}
